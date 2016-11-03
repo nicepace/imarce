@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.imarce.webadmin.dao.EmployTendDao">
+	  
+	  <select id="queryEmployTend" resultMap="employTendMap">
+				  SELECT
+				      a.employ_tend_id, 
+				      a.student_id,
+				      a.employ_company,
+				      a.employ_name,
+				      a.employ_qq,
+				      a.employ_phone,
+				      a.release_time,
+				      b.student_name
+					FROM
+					  employ_tend a LEFT JOIN student b
+					ON
+					  a.student_id = b.student_id
+					ORDER BY 
+					  a.release_time DESC
+					LIMIT #{start}, #{rows} 
+	  </select>
+	  
+	  <resultMap type="EmployTend" id="employTendMap">
+	       <id column="employ_company" property="employCompany"/>
+	       <result column="employ_name" property="employName"/>
+	       <result column="employ_phone" property="employPhone"/> 
+	       <result column="employ_qq" property="employQq"/>      
+	       <result column="release_time" property="releaseTime"/> 
+	       <result column="employ_tend_id" property="employTendId"/> 
+	       
+	       <association property="student" javaType="Student">
+	          <result column="student_name" property="studentName"/>
+	       </association>
+	  </resultMap>
+	  
+	  
+	  <select id="countEmployTend" resultType="java.lang.Integer">
+           SELECT 
+               COUNT(1) 
+           FROM 
+               employ_tend
+	  </select>
+	  
+	  <delete id="deleteEmployTend">
+	  DELETE 
+	  FROM 
+	  	employ_tend 
+	  WHERE 
+	  	employ_tend_id = #{employTendId}
+	  </delete>
+</mapper>

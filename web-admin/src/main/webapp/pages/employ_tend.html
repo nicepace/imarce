@@ -1,0 +1,62 @@
+<div id="ft" style="padding: 2px 5px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteEmployTend()"></a> 
+	</div>
+<table class="easyui-datagrid" id="flusher" title="招聘意向表" style="height:480px"
+            data-options="singleSelect:true,url:'../employTend',onClickRow:getEmId,pagination:true,fitColumns:true">
+        <thead>
+            <tr>
+                <th data-options="field:'student',width:100,formatter:getStudent">姓名</th>
+                <th data-options="field:'employCompany',width:180">公司</th>
+                <th data-options="field:'employName',width:100">联系人</th>
+                <th data-options="field:'employPhone',width:120">手机</th>
+                <th data-options="field:'employQq',width:100">QQ</th>
+                <th data-options="field:'releaseTimeStr',width:240">发布时间</th>
+            </tr>
+        </thead>
+</table>
+<script>
+function getStudent(value, row, index) {
+	if (value && value.studentName)
+		return value.studentName;
+	else
+		return "";
+} 
+
+var EmId = null;
+function getEmId(index,row){
+	EmId=row.employTendId;
+}
+function deleteEmployTend(){
+		if(EmId!=null&&EmId>0){
+			$.messager.confirm('Confirm', '确认删除?', function(r){
+			if (r){
+				 $.ajax({
+				     url:"../delete_employTend",
+					 type:"post",
+					 dataType:"json",
+					 data:{ 
+					           "employTendId":EmId								          
+						  },
+				     success:function(da){	
+				    	 if(da.code=="10001"){
+				    	     alert(da.msg)
+				    	 }else{
+				    		 alert(da.msg)
+				    	 }							    	 
+				    	 $("#flusher").datagrid("reload"); 	
+				    	 EmId=null;
+				     },
+					 error:function(){
+						 alert("删除失败");
+					 }  
+				});			
+			}
+		});
+		}
+		else{
+			alert("选择要删除的行！");
+		}
+}
+
+
+</script>

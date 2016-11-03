@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>i码士后台管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../themes/bootstrap/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../themes/icon.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/jcrop/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="easyui-layout">
+       <div data-options="region:'north',split:true" style="height:60px;"></div>
+        <div data-options="region:'west',title:'操作菜单',split:true" style="width:140px;">
+            <ul class="left_nav">
+                <li><a href="javascript:;" onclick="nvai('goodStudent.html');">优秀学员</a></li>
+                <li><a href="javascript:;" onclick="nvai('registedStu.html');">新码士</a></li>
+                <li><a href="javascript:;" onclick="nvai('employ_tend.html');">招聘新码士</a></li>
+                <li><a href="javascript:;" onclick="nvai('recommend.html');">推荐简历</a></li>
+                <li><a href="javascript:;" onclick="nvai('requirement_list.html');">需求列表</a></li>
+                <li><a href="javascript:;" onclick="nvai('opinions_list.html');">意见列表</a></li>
+                <li><a href="javascript:;" onclick="nvai('LevelMaintenance.html');">等级维护</a></li>
+                <li><a href="javascript:;" onclick="nvai('position.html');">岗位维护</a></li>
+                <li><a href="javascript:;" onclick="nvai('skill_for_position.html');">技能维护</a></li>
+                <li><a href="javascript:;" onclick="exitlogin()">退出登录</a></li>
+            </ul>
+        </div>
+        <div data-options="region:'center',title:'工作区'" style="padding:5px;background:#eee;" id="mainPanel"> 
+        
+        
+        </div>
+        
+    <div id="win" class="easyui-window" data-options="closed:true,modal:true"></div>
+</body>
+</html>
+<script language="javascript" src="../scripts/jquery.min.js"></script>
+<script language="javascript" src="../scripts/jquery.form.js"></script>
+<script language="javascript" src="../scripts/jquery.easyui.min.js"></script>
+<script language="javascript" src="../scripts/easyui-lang-zh_CN.js"></script>
+<script language="javascript" src="../plugin/uploadify/jquery.uploadify.min.js"></script>
+<script language="javascript" src="../plugin/jcrop/jquery.Jcrop.min.js"></script>
+
+
+
+<script>
+  function exitlogin(){
+	 $.ajax({
+		 url:"../exit_login",
+		 type:"post",
+		 dataType:"json",
+		 success:function(da){
+			 if(da.code="10001"){
+				 location.href="../login/login.html";
+			 }else{
+				 location.href="../login/login.html";
+			 }
+		 }
+	 })
+    
+  }
+  function nvai(page){
+	   $("#mainPanel").panel("refresh",page);
+  }
+  
+  function openWindow(title,width,height,url){
+	    $('#win').window("refresh",url);
+	    $('#win').window({
+			    inline:true,
+			    title:title,
+				width:width,
+				height:height
+		});
+		$('#win').window("center");
+		$('#win').window("open");
+  }
+ 
+</script>

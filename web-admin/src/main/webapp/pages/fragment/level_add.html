@@ -1,0 +1,54 @@
+<div class="easyui-panel" data-options="fit:true">
+
+	<table class="table_info" width="100%">
+		<tr>
+			<td width="40%" align="right">等级:</td>
+			<td width="60%">
+				<input class="easyui-textbox" name="levelnameadd" data-options="required:true"/>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">描述:</td>
+			<td>
+				<input name="descriptionadd" class="easyui-textbox" data-options="multiline:true" style="width:300px;height:100px"/>
+			</td>
+		</tr>
+				
+	</table>
+	<p style="text-align:center">
+			<a id="level_add" href="javascript:;" onclick="levelAdd()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">添加</a>
+	</p>
+	 <p id="basic_level_add" style="text-align:center"></p>
+</div>
+<script>
+function levelAdd(){
+	 $.ajax({
+	     url:"../view_level_add",
+		 type:"post",
+		 dataType:"json",
+		 data:{ 
+		           "levelName":$("input[name='levelnameadd']").val(),
+		           "levelDesc":$("input[name='descriptionadd']").val()
+			  },
+	     success:function(da){
+	          $("#basic_level_add").html("<font color='red'>"+da.msg+"</font>");
+	          $("#win").window("close");
+	          $.messager.alert("提示","添加成功！");
+	          $("#flush").datagrid("reload");    
+	          if(da.code=="10002"){
+	        	  $('#level_add').linkbutton('enable');
+	          }
+	     },
+	     beforeSend:function(){
+	    	 $("#basic_level_add").html("<font color='red' >添加中...</font>");
+	    	 $('#level_add').linkbutton('disable');
+	     },
+	     error:function(){
+	    	 $("#basic_level_add").html("<font color='red' >服务器忙...</font>") 
+	     }
+	     
+	});			
+}
+</script>
+
+

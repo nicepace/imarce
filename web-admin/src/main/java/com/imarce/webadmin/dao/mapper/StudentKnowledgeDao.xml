@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imarce.webadmin.dao.StudentKnowledgeDao">
+	<!-- 查询学生知识表 -->
+	<select id="queryStudentKnowledge" resultType="KnowledgeVO">
+		SELECT 
+			sk.knowledge_id as id,
+			k.knowledge_name
+		FROM
+			student_knowledge sk 
+		JOIN 
+			knowledge k
+		WHERE 
+			sk.knowledge_id=k.knowledge_id
+		AND
+			sk.student_id = #{studentId}
+	</select>
+	<!-- 添加学生知识 -->
+ 	<insert id="addStudentKnowledge" parameterType="StudentKnowledge">
+		INSERT INTO student_knowledge
+		(
+			student_id,
+			knowledge_id
+		) 
+		VALUES
+		(
+			#{studentId},
+			#{knowledgeId}
+		)
+	</insert>
+	
+	<!-- 修改学生知识 -->
+	<update id="updateStudentKnowledge" parameterType="StudentKnowledge">
+		UPDATE 
+			student_knowledge
+		SET
+			knowledge_id = #{knowledgeId}
+		WHERE 
+			student_knowledge_id = #{studentId}
+	</update>
+	
+	<!-- 删除学生知识 -->
+	<delete id="deleteStudentKnowledge" parameterType="StudentKnowledge">
+		DELETE 
+		FROM
+			student_knowledge
+		WHERE 
+			student_id = #{studentId}
+		AND
+			knowledge_id = #{knowledgeId}
+	</delete>
+</mapper>

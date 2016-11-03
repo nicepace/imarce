@@ -1,0 +1,63 @@
+<div class="easyui-panel" title="等级维护">
+	<div id="ft" style="padding:2px 5px;" data-options="minimizable:false">
+			<a href="#" onclick="addLevel()" class="easyui-linkbutton" iconCls="icon-add" plain="true" ></a>
+			<a href="#" onclick="deleteLevel()" class="easyui-linkbutton" iconCls="icon-remove" plain="true" ></a>
+	</div>
+	<table class="easyui-datagrid"  id="flush" data-options=
+	"url:'../queryLevel',singleSelect:true,footer:'#ft',onClickRow:getLevelId,onDblClickRow:showLevelInfo" style="height:500px">
+		<thead>
+			<tr>
+				<th data-options="field:'levelName',width:100">等级</th>
+				<th data-options="field:'levelDesc',width:150">备注</th>
+			</tr>
+		</thead>
+	</table>
+</div>
+<script>
+ function showLevelInfo(index,row){
+	openWindow("编辑等级信息",400,250,"../view_level?lid="+row.levelId);
+ }
+ 
+ function addLevel(){
+	 openWindow("添加等级",400,250,"fragment/level_add.html");
+ }
+ 
+ var levelId=null;
+ function getLevelId(index,row){
+	 levelId=row.levelId;
+ }
+ function deleteLevel(){
+		var row=$('#flush').datagrid('getSelected'); 
+		if(row==null){
+			$.messager.alert("提示","请选择要删除的行！");
+			return;
+		}else{
+			$.messager.confirm('提示', '确认要删除吗?', function(r){
+				if (r){
+					 $.ajax({
+						    url:"../view_level_delete",
+							type:"post",
+							dataType:"json",
+							data:{ 
+							         "levelId":levelId								          
+								 },
+						    success:function(da){	
+						    	if(da.code=="10001"){
+						    		$.messager.alert("提示","删除成功！");	 
+						    	}else{
+						    		$.messager.alert("提示","该等级被占用，无法删除！");	 
+						    	}							    	 
+						    	$("#flush").datagrid("reload");
+						    	levelId=null;
+						    },
+							error:function(){
+								$.messager.alert("提示","该等级被占用，无法删除！");
+							}  
+					});			
+				}
+			});
+		}
+	}
+ 	
+ 
+</script>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imarce.webadmin.dao.BetterStudentDao">
+
+	<select id="getStudentTotal" resultType="java.lang.Integer">
+		select 
+			count(*) 
+		from 
+			student
+		where 
+			work_state=0 
+			<if test="student.positionId != null">
+				and 
+					position_id= #{student.positionId}
+			</if>
+			<if test="student.levelId != null">  
+                and 
+                	level_id = #{student.levelId}
+            </if>
+	</select>
+	<select id="getStudents"  resultMap="studentResult">
+		select 
+			s.student_id,
+			s.head_picture,
+			s.student_name,
+			s.position_id,
+			s.level_id,
+			s.area,
+			s.student_introduce,
+			s.salary,
+			s.employed,
+			s.work_time,
+			s.work_date,
+			s.work_state
+		from 
+			student s
+		where 
+			work_state=0 
+			<if test="student.positionId != null">
+				and 
+					position_id= #{student.positionId}
+			</if>
+			<if test="student.levelId != null">  
+                and 
+                	level_id = #{student.levelId}
+            </if> 
+		limit #{page.pageStart},#{page.pageNum}
+	</select>
+	<resultMap type="com.imarce.wechat.entity.Student" id="studentResult">
+		<id column="student_id" property="studentId"></id>
+		<result column="student_name" property="studentName"/>
+		<result column="student_introduce" property="studentIntroduce"/>
+		<result column="head_picture" property="headPicture"></result>
+		<result column="position_id" property="positionId"></result>
+		<result column="level_id" property="levelId"></result>
+		<result column="work_time" property="workTime"></result>
+		<result column="area" property="area"></result>
+		<result column="salary" property="salary"></result>
+		<result column="employed" property="employed"></result>
+		<result column="work_date" property="dateTime"></result>
+		<result column="work_state" property="workState"></result>
+		<collection column="student_id" property="knowledge" 
+		javaType="list" ofType="com.imarce.wechat.entity.Knowledge" select="getStudentKnowledge"></collection>
+	</resultMap>
+	
+	<select id="getLevels" resultType="com.imarce.wechat.entity.Level">
+		select * from level 
+			limit #{page.pageStart},#{page.pageNum}
+	</select>
+	
+	<select id="getStudentInfoByStudentId"  resultMap="studentResult">
+	 select 
+	 	t.student_id,
+	 	t.head_picture,
+	 	t.student_name,
+	 	t.position_id,
+	 	t.level_id,
+	 	t.area,
+	 	t.student_introduce,
+	 	t.salary,
+	 	t.employed,
+	 	t.work_time,
+	 	t.work_date,
+	 	t.work_state
+	 from 
+	 	student t 
+	where  
+		t.student_id=#{student.studentId} 
+	</select>
+	
+
+	
+	<select id="getWorkExperienceByStudentId"  resultType="com.imarce.wechat.entity.WorkExperience">
+		select 
+			w.work_experience_id,
+	 		w.student_id,
+	 		w.work_company,
+	 		w.work_introduce,
+	 		w.work_start,
+	 		w.work_end
+		from 
+			work_experience w 
+		where 
+			w.student_id=#{student.studentId}
+	</select>
+
+	<select id="getProjectExperienceByStudentId"  resultType="com.imarce.wechat.entity.ProjectExperience" >
+		select 
+			p.project_experience_id,
+	 		p.student_id,
+	 		p.project_name,
+	 		p.project_introduce,
+	 		p.project_start ,
+	 		p.project_end	 
+		from 
+			project_experience p 
+		where 
+			p.student_id=#{student.studentId} 
+	</select>
+	
+	<select id="getLevelByLevelId" resultType="java.lang.String">
+		select 
+			level_name 
+		from 
+			level 
+		where 
+			level_id=#{levelId} 
+	</select>
+	
+	<select id="getPositionByPositionId" resultType="java.lang.String">
+		select position_name from position where position_id=#{positionId} 
+	</select>
+	
+	<select id="getStudentKnowledge"  resultType="com.imarce.wechat.entity.Knowledge">
+		select 
+			k.knowledge_id,
+			k.knowledge_name 
+		from 
+			student t,
+			knowledge k,
+			student_knowledge sk 
+		where 
+			sk.student_id=t.student_id 
+			and sk.knowledge_id=k.knowledge_id 
+			and t.student_id=#{studentId}
+	</select>
+	<insert id="insertEmployTend" parameterType="com.imarce.wechat.entity.EmployTend">
+		insert 
+			into 
+		employ_tend(student_id,employ_company,employ_name,employ_qq,employ_phone,user_id,release_time)
+			values
+		(#{studentId},#{employCompany},#{employName},#{employQQ},#{employPhone},#{userId},now())
+	</insert>
+	
+</mapper>

@@ -1,0 +1,154 @@
+ <div id="p" class="easyui-panel" title="技能维护" data-options="fit:true" style="padding-top:10px;">
+ 	<!-- 岗位类型列表 -->
+	<div style="float:left;padding-left:50px;padding-bottom:10px;width:280px;">
+	    <ul class="easyui-datalist" id="position" title="岗位类型" lines="true" style="width:280px;height:460px"
+	    data-options="url: '../view_position_name',textField:'positionName',
+	    onClickRow:querySkillByPosition">
+	    </ul>
+	</div>
+	<!-- 岗位所需技能列表 -->
+	<div style="float:left;padding-left:50px;padding-bottom:10px;width:280px;text-align: center;vertical-align:middle;">
+		<ul class="easyui-datalist" id="skillmodule" title="岗位技能" lines="true" style="width:280px;height:460px"
+		 data-options="url: '../query_skill_by_position',textField:'skillModuleName',
+		 onClickRow:queryKnowledgeBySkillModule">
+	    </ul>	
+	    <br/>
+	    <p style="text-align:right">
+	    <a href="javascript:;" class="easyui-linkbutton" data-options="" style="float:right;" onclick="updateSkillModule()" >修改</a>
+		<a href="javascript:;" class="easyui-linkbutton" data-options="" style="float:right;margin-right:10px;" onclick="addSkillModule()">增加</a>
+		<a href="javascript:;" class="easyui-linkbutton" data-options="" style="float:right;margin-right:10px;" onclick="deleteSkillModule()">删除</a>
+		</p>    
+	</div>
+	<!-- 技能所需知识列表 -->
+	<div style="float:left;padding-left:50px;width:280px;">
+		<ul class="easyui-datalist" id="knowledge" title="技能知识" lines="true" style="width:280px;height:460px"
+		data-options="url: '../query_knowledge_by_skillmodule',textField:'knowledgeName'">   	
+	    </ul>
+	    <br/>
+	    <a href="javascript:;" class="easyui-linkbutton" data-options="" style="float:right;" onclick="updateKnowledge()">修改</a>
+		<a href="javascript:;" class="easyui-linkbutton" data-options="" style="float:right;margin-right:10px;" onclick="addKnowledge()">增加</a>
+		<a href="javascript:;" class="easyui-linkbutton" data-options="" style="float:right;margin-right:10px;" onclick="deleteKnowledge()">删除</a>
+	</div>
+</div>
+<script>
+	function querySkillByPosition(index, row){
+		$('#skillmodule').datalist("reload",{
+			positionId:row.positionId
+		});
+	}
+	
+	function queryKnowledgeBySkillModule(index, row){
+		$('#knowledge').datalist("reload",{
+			skillModuleId:row.id
+		});
+	}
+	
+	//添加岗位技能
+ 	function addSkillModule(){	
+  		if($('#position').datalist('getSelected')!=null){
+ 			var pid = $('#position').datalist('getSelected').positionId;
+			openWindow("添加岗位技能", 315, 290, "fragment/skillmodule_add.jsp?positionId="+pid);
+ 		}
+		else
+			$.messager.alert("提示","请先选择岗位！");  
+	} 
+ 	
+ 	//修改岗位技能
+	function updateSkillModule(){
+ 		if($('#skillmodule').datalist('getSelected')!=null){
+ 			var sid = $('#skillmodule').datalist('getSelected').id;
+ 			openWindow("修改岗位技能",315,290,"../query_skillmodule_by_id?skillModuleId="+sid);
+ 		}
+		else
+			$.messager.alert("提示","请先选择岗位技能！");  
+		
+	}
+ 	
+ 	//删除岗位技能
+ 	function deleteSkillModule(){
+ 		if($('#skillmodule').datalist('getSelected')!=null){
+ 			var sid = $('#skillmodule').datalist('getSelected').id;
+ 			$.messager.confirm('提示', '确认要删除吗?', function(r){
+				if (r){
+					 $.ajax({
+						    url:"../delete_skillmodule",
+							type:"post",
+							dataType:"json",
+							data:{ 
+							         "skillModuleId":sid								          
+								 },
+						    success:function(da){	
+						    	if(da.code=="10001"){
+						    		$.messager.alert("提示","删除成功！");	 
+						    	}else{
+						    		$.messager.alert("提示","该岗位技能被占用，无法删除！");	 
+						    	}							    	 
+						    	$("#skillmodule").datagrid("reload");
+						    	$("#knowledge").datagrid("reload");
+						    	sid=null;
+						    },
+							error:function(){
+								$.messager.alert("提示","该岗位技能被占用，无法删除！");
+							}  
+					});			
+				}
+			});
+ 		}
+		else{
+			$.messager.alert("提示","请选择要删除的岗位技能！");
+		    return; 
+		}
+ 	}
+ 	//添加技能知识
+ 	function addKnowledge(){
+  		if($('#skillmodule').datalist('getSelected')!=null){
+ 			var sid = $('#skillmodule').datalist('getSelected').id;
+ 			openWindow("添加技能知识",315,290,"fragment/knowledge_add.jsp?skillModuleId="+sid);
+ 		}
+		else
+			$.messager.alert("提示","请先选择岗位技能！");
+ 	}
+ 	//修改技能知识
+ 	function updateKnowledge(){
+ 		if($('#knowledge').datalist('getSelected')!=null){
+ 			var kid = $('#knowledge').datalist('getSelected').id;
+ 			openWindow("修改技能知识",315,290,"../query_knowledge_by_id?knowledgeId="+kid);
+ 		}
+		else
+			$.messager.alert("提示","请先选择技能知识！");
+ 	}
+    //删除技能知识
+ 	function deleteKnowledge(){
+ 		if($('#knowledge').datalist('getSelected')!=null){
+ 			var kid = $('#knowledge').datalist('getSelected').id;
+ 			$.messager.confirm('提示', '确认要删除吗?', function(r){
+				if (r){
+					 $.ajax({
+						    url:"../delete_knowledge",
+							type:"post",
+							dataType:"json",
+							data:{ 
+							         "knowledgeId":kid								          
+								 },
+						    success:function(da){	
+						    	if(da.code=="10001"){
+						    		$.messager.alert("提示","删除成功！");	 
+						    	}else{
+						    		$.messager.alert("提示","该技能知识被占用，无法删除！");	 
+						    	}							    	 
+						    	$("#knowledge").datagrid("reload");
+						    	kid=null;
+						    },
+							error:function(){
+								$.messager.alert("提示","该技能知识被占用，无法删除！");
+							}  
+					});			
+				}
+			});
+ 		}
+		else{
+			$.messager.alert("提示","请选择要删除的技能知识！");
+		    return; 
+		}
+ 	}
+</script>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.imarce.webadmin.dao.RequirementDao">
+	  
+	  <select id="queryRequirements" resultMap="requirementsMap">
+				  SELECT 
+					  a.requirement_id,
+					  a.company_name,
+					  a.contacts,
+					  a.phone_number,
+					  a.salary_min,
+					  a.salary_max,
+					  a.requirement_introduce,
+					  a.release_time ,
+					  b.position_name
+					FROM
+					  requirement a JOIN `position`   b
+					ON
+					  a.position_id = b.position_id 
+					ORDER BY 
+					  release_time DESC
+					LIMIT #{start}, #{rows} 
+	  </select>
+	  
+	  
+	  
+	  <resultMap type="Requirement" id="requirementsMap">
+	       <id column="requirement_id" property="requirementId"/>
+	       <result column="company_name" property="companyName"/>
+	       <result column="contacts" property="contacts"/>
+	      
+	       <result column="phone_number" property="phoneNumber"/> 
+	       <result column="salary_min" property="salaryMin"/> 
+	       <result column="salary_max" property="salaryMax"/> 
+	       <result column="requirement_introduce" property="requirementIntroduce"/> 
+	       <result column="release_time" property="releaseTime"/> 
+	     <association property="position" javaType="Position">
+	          <result column="position_name" property="positionName"/>
+	     </association>
+	  </resultMap>
+	  
+	  
+	  <select id="countRequirements" resultType="java.lang.Integer">
+           SELECT 
+               COUNT(1) 
+           FROM 
+               requirement
+	  </select>
+	  
+	  <select id="queryReqKnowledge" resultType="com.imarce.webadmin.entity.vo.KnowledgeVO">
+           SELECT 
+				b.knowledge_name
+		   FROM 
+				requirement_knowledge a
+		   JOIN
+				knowledge b
+		   ON
+				a.knowledge_id = b.knowledge_id
+		   WHERE 
+				a.requirement_id = #{requirement_id}
+	  </select>
+	  
+	  <select id="queryReqSkill" resultType="com.imarce.webadmin.entity.Skill">
+           SELECT 
+				b.skill_name
+		   FROM 
+				requirement_skill a
+		   JOIN
+				skill b
+		   ON
+				a.skill_id = b.skill_id
+		   WHERE 
+				a.requirement_id = #{requirement_id}
+	  </select>
+	  
+	  <delete id="deleteRequirement">
+	  DELETE 
+	  FROM 
+	  	requirement 
+	  WHERE 
+	  	requirement_id = #{requirementId}
+	  </delete>
+</mapper>

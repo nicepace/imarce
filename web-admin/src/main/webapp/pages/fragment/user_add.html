@@ -1,0 +1,63 @@
+<div class="easyui-panel" data-options="fit:true">
+     <table class="table_info" width="100%">
+		<tr>
+			<td width="40%" align="left">用户：</td>
+			<td width="60%">
+				<input id="name" class="easyui-textbox" name="name" data-options="required:true" />
+			</td>
+		</tr>
+		<tr>
+			<td align="left">密码:</td>
+			<td>
+				<input name="password" class="easyui-textbox" data-options="required:true"/>
+			</td>
+		</tr>
+				
+	</table>
+
+            <p style="text-align:center">
+           
+              <a id="basic_btn"  href="javascript:;"  onclick="add_User()"  class="easyui-linkbutton" 
+                  >保存信息
+              </a>
+            </p>
+            <p id="basic_tip" style="text-align:center"></p>
+        </div>
+  <script>
+    function add_User(){
+    	 if(document.getElementById("name").value==""||document.getElementById(""password"").value==""){
+    		 $("#basic_tip").html("<font color='red' >用户密码不能为空!</font>");
+    	    }
+    	 else{
+    		 $.ajax({
+    	 
+    	     url:"../add_user",
+    		 type:"post",
+    		 dataType:"json",
+    		 data:{ 
+    		           "userName":$("input[name='name']").val(),
+    		           "userPwd":$("input[name='password']").val()
+    			  },
+    	     success:function(da){
+    	          $("#basic_tip").html("<font color='red'>"+da.msg+"</font>");
+    	          $("#win").window("close");
+    	          $.messager.alert("提示","添加成功！");
+    	          $("#refresh").datagrid("reload"); 
+    	          if(da.code=="10002"){
+    	        	  $('#basic_btn').linkbutton('enable');
+    	          }
+    	     },
+    	     beforeSend:function(){
+    	    	 $("#basic_tip").html("<font color='red' >保存中...</font>");
+    	    	 $('#basic_btn').linkbutton('disable');
+    	     },
+    	     error:function(){
+    	    	 $("#basic_tip").html("<font color='red' >服务器忙...</font>") 
+    	     }
+    	});
+      }
+    	
+    	
+    }
+  
+  </script>

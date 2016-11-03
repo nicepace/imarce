@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imarce.webadmin.dao.ReleaseRequirementDao">
+
+	<insert id="insertIntoRequirement" parameterType="com.imarce.wechat.vo.RequirementVo">
+		<selectKey keyProperty="requirementId" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+			requirement (position_id,company_name,contacts,phone_number,salary_min,salary_max,requirement_introduce)
+		VALUES
+			(#{positionId},#{companyName},#{contacts},#{phoneNumber},#{salaryMin},#{salaryMax},#{requirementIntroduce})
+	</insert>
+	
+	<insert id="insertIntoRequirementKnowledge" parameterType="com.imarce.wechat.vo.RequirementKnowledgeVo">
+		INSERT INTO
+			requirement_knowledge (requirement_id,knowledge_id)
+		VALUES
+			(#{requirementId},#{knowledgeId})
+	</insert>
+	
+	<insert id="insertIntoRequirementSkill" parameterType="com.imarce.wechat.vo.RequirementSkillVo">
+		INSERT INTO
+			requirement_skill (requirement_id,skill_id)
+		VALUES
+			(#{requirementId},#{skillId})
+	</insert>
+	
+	<insert id="insertIntoKnowledge" parameterType="com.imarce.wechat.vo.CustomKnowledge">
+		INSERT INTO
+			knowledge (knowledge_name,requirement_id,skillmodule_id)
+		VALUES
+			(#{knowledgeName},#{requirementId},#{skillmoduleId})
+	</insert>
+	
+	<insert id="insertIntoSkill" parameterType="com.imarce.wechat.vo.CustomSkill">
+		INSERT INTO
+			skill (skill_name,requirement_id)
+		VALUES
+			(#{skillName},#{requirementId})
+	</insert>
+	
+	<resultMap type="com.imarce.wechat.entity.Position" id="positionMap">
+		<id property="positionId" column="position_id"/>
+		<result property="positionName" column="position_name"/>
+	</resultMap>
+	<select id="showPosition" resultMap="positionMap">
+		SELECT 
+			position_id,position_name
+		FROM
+			position
+	</select>
+	
+	<resultMap type="com.imarce.wechat.vo.SkillmoduleVo" id="skillModuleVoMap">
+		<result property="skillmoduleName" column="skillmodule_name"/>
+		<collection property="knowledgeList" ofType="com.imarce.wechat.entity.Knowledge">
+			<id property="knowledgeId" column="knowledge_id"/>
+			<result property="knowledgeName" column="knowledge_name"/>
+		</collection>
+	</resultMap>
+	<select id="showSkillmodule" resultMap="skillModuleVoMap" parameterType="int">
+		SELECT
+			m.skillmodule_name,k.knowledge_id,k.knowledge_name
+		FROM
+			skillmodule m,knowledge k,position_skillmodule p
+		WHERE
+			m.skillmodule_id=k.skillmodule_id
+		AND
+			m.skillmodule_id=p.skillmodule_id
+		AND
+			p.position_id=#{positionId}
+		AND
+			k.requirement_id is null
+	</select>
+	
+	<resultMap type="com.imarce.wechat.entity.Skill" id="skillMap">
+		<id property="skillId" column="skill_id"/>
+		<result property="skillName" column="skill_name"/>
+	</resultMap>
+	<select id="showSkill" resultMap="skillMap">
+		SELECT
+			skill_id,skill_name
+		FROM
+			skill
+		WHERE
+			requirement_id is null
+	</select>
+	
+	<select id="getKnowledgeIdByKnowledgeName" parameterType="java.lang.String" resultType="Integer">
+		SELECT
+			knowledge_id
+		FROM
+			knowledge
+		WHERE
+			knowledge_name=#{knowledgeName}
+	</select>
+	
+	<select id="getSkillIdBySkillName" parameterType="java.lang.String" resultType="Integer">
+		SELECT
+			skill_id
+		FROM
+			skill
+		WHERE
+			skill_name=#{skillName}
+	</select>
+	
+	<select id="getPositionIdByPositionName" parameterType="java.lang.String" resultType="Integer">
+		SELECT
+			position_id
+		FROM
+			position
+		WHERE
+			position_name=#{positionName}
+	</select>
+</mapper>

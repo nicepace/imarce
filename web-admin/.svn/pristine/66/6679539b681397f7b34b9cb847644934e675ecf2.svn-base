@@ -1,0 +1,59 @@
+<div id="ft" style="padding: 2px 5px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteOp()"></a> 
+	</div>
+<div id="p" class="easyui-panel" title="意见列表">
+
+<table id="flusher" class="easyui-datagrid"
+    data-options="url:'../opinions',fitColumns:true,singleSelect:true,onDblClickRow:showFull,pagination:true,
+    			rowStyler:function(index,row){if(index>=0){return 'height:47px;';}},onClickRow:getOpId" 
+    style="height:525px">
+    <thead>
+        <tr>
+            <th data-options="field:'releaseTimeStr',width:50">反馈时间</th>
+            <th data-options="field:'brief',width:300">意见概要</th>
+            <th data-options="field:'userId',width:50">反馈用户</th>
+        </tr>
+    </thead>
+</table>
+<script>
+    function showFull(index,row){		
+    	openWindow("意见反馈",600,400,"../view_opinion?opinionId="+row.opinionId);
+	}
+    
+    var opId = null;
+    function getOpId(index,row){
+    	opId=row.opinionId;
+    }
+    function deleteOp(){
+    		if(opId!=null&&opId>0){
+    			$.messager.confirm('Confirm', '确认删除?', function(r){
+    			if (r){
+    				 $.ajax({
+    				     url:"../delete_opinion",
+    					 type:"post",
+    					 dataType:"json",
+    					 data:{ 
+    					           "opinionId":opId								          
+    						  },
+    				     success:function(da){	
+    				    	 if(da.code=="10001"){
+    				    	     alert(da.msg)
+    				    	 }else{
+    				    		 alert(da.msg)
+    				    	 }							    	 
+    				    	 $("#flusher").datagrid("reload"); 	
+    				    	 opId=null;
+    				     },
+    					 error:function(){
+    						 alert("删除失败");
+    					 }  
+    				});			
+    			}
+    		});
+    		}
+    		else{
+    			alert("选择要删除的行！");
+    		}
+    }
+</script>
+    

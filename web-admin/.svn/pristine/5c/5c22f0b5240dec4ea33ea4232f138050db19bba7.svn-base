@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.imarce.webadmin.dao.ProjectExperienceDao">
+	  
+	  <select id="queryProjectExperience" parameterType="java.lang.Integer" resultMap="projectExperienceMap">
+		  SELECT 
+			  a.project_experience_id,
+			  a.student_id,
+			  a.project_name,
+			  a.project_introduce,
+			  a.project_start,
+			  a.project_end
+		  FROM 
+		  	  project_experience a 
+		  WHERE 
+		  	  a.student_id=#{studentId}
+		  ORDER BY
+		  	  a.project_start DESC
+		      
+	  </select>
+		
+	  <select id="queryProjectExpById" parameterType="java.lang.Integer" resultMap="projectExperienceMap">
+		  SELECT 
+			  a.project_experience_id,
+			  a.student_id,
+			  a.project_name,
+			  a.project_introduce,
+			  a.project_start,
+			  a.project_end
+		  FROM 
+		  	  project_experience a LEFT JOIN student b
+		  ON
+			  a.student_id = b.student_id 
+		  WHERE a.project_experience_id=#{projectExperienceId}
+		      
+	  </select>
+	  
+	  <resultMap type="ProjectExperience" id="projectExperienceMap">
+	       <id column="project_experience_id" property="projectExperienceId"/>
+	       <result column="student_id" property="studentId"/>
+	       <result column="project_name" property="projectName"/>
+	       <result column="project_introduce" property="projectIntroduce"/> 
+	       <result column="project_start" property="projectStart"/> 
+	       <result column="project_end" property="projectEnd"/> 	        	             
+	  </resultMap>
+	  
+	  <select id="countProjectExperience" resultType="java.lang.Integer">
+           SELECT 
+               COUNT(1) 
+           FROM 
+               project_experience
+	  </select>
+	   
+	  <insert id="saveProjectExperience" parameterType="ProjectExperience" useGeneratedKeys="true" keyProperty="projectExperienceId">
+	        INSERT INTO project_experience (
+			  student_id,
+			  project_name,
+			  project_introduce,
+			  project_start,
+			  project_end
+			) 
+			VALUES
+			  (
+			    #{studentId},
+			    #{projectName},
+			    #{projectIntroduce},
+			    #{projectStart},
+			    #{projectEnd}
+			  ) 
+	  </insert>
+	  
+	  <update id="updateProjectExperience" parameterType="ProjectExperience" >
+	  	UPDATE project_experience SET 
+	  		student_id=#{studentId},
+	  		project_name=#{projectName},
+	  		project_introduce=#{projectIntroduce},
+	  		project_start=#{projectStart},
+	  		project_end=#{projectEnd}
+	  	WHERE project_experience_id=#{projectExperienceId}
+	  </update>
+	  
+	  <delete id="deleteProjectExpById" parameterType="java.lang.Integer">
+	  	DELETE 
+	  		a
+	  	FROM 
+	  		project_experience AS a	  	
+	  	WHERE
+	  		project_experience_id=#{projectExperienceId}
+	  </delete>		
+</mapper>

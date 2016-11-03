@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.imarce.webadmin.dao.WorkExperienceDao">
+	  
+	  <select id="queryWorkExperience" parameterType="java.lang.Integer" resultMap="WorkExperienceMap">
+		  SELECT 
+			  a.work_experience_id,
+			  a.student_id,
+			  a.work_company,
+			  a.work_introduce,
+			  a.work_start,
+			  a.work_end
+		  FROM 
+		  	  work_experience a 
+
+		  WHERE a.student_id=#{studentId}
+		  
+		  ORDER BY 
+			  a.work_start DESC     
+	  </select>
+		
+	  <!-- <select id="queryWorkExpById" parameterType="java.lang.Integer" resultMap="WorkExperienceMap">
+		  SELECT 
+			  a.work_experience_id,
+			  a.student_id,
+			  a.work_company,
+			  a.work_introduce,
+			  a.work_start,
+			  a.work_end
+		  FROM 
+		  	  work_experience a LEFT JOIN student b
+		  ON
+			  a.student_id = b.student_id 
+		  WHERE a.student_id=#{studentId}
+		      
+	  </select> -->
+	  
+	  <select id="queryWorkExpById" parameterType="java.lang.Integer" resultMap="WorkExperienceMap">
+		  SELECT 
+			  a.work_experience_id,
+			  a.student_id,
+			  a.work_company,
+			  a.work_introduce,
+			  a.work_start,
+			  a.work_end
+		  FROM 
+		  	  work_experience a 
+		  WHERE 
+		      a.work_experience_id=#{workExperienceId}
+		      
+	  </select>
+	  
+	  <resultMap type="WorkExperience" id="WorkExperienceMap">
+	       <id column="work_experience_id" property="workExperienceId"/>
+	       <result column="student_id" property="studentId"/>
+	       <result column="work_company" property="workCompany"/>
+	       <result column="work_introduce" property="workIntroduce"/> 
+	       <result column="work_start" property="workStart"/> 
+	       <result column="work_end" property="workEnd"/> 	        	             
+	  </resultMap>
+	  
+	  <select id="countWorkExperience" resultType="java.lang.Integer">
+           SELECT 
+               COUNT(1) 
+           FROM 
+               work_experience
+	  </select>
+	  
+	  
+	  
+	  <insert id="saveWorkExperience" parameterType="WorkExperience" useGeneratedKeys="true" keyProperty="workExperienceId">
+	        INSERT INTO work_experience (
+			  student_id,
+			  work_company,
+			  work_introduce,
+			  work_start,
+			  work_end
+			) 
+			VALUES
+			  (
+			    #{studentId},
+			    #{workCompany},
+			    #{workIntroduce},
+			    #{workStart},
+			    #{workEnd}
+			  ) 
+	  </insert>
+	  
+	  <update id="updateWorkExperience" parameterType="WorkExperience" >
+	  	UPDATE work_experience SET 
+	  		student_id=#{studentId},
+	  		work_company=#{workCompany},
+	  		work_introduce=#{workIntroduce},
+	  		work_start=#{workStart},
+	  		work_end=#{workEnd}
+	  	WHERE work_experience_id=#{workExperienceId}
+	  </update>
+	  
+	  <delete id="deleteWorkExpById" parameterType="java.lang.Integer">
+	  	DELETE 
+	  		a
+	  	FROM 
+	  		work_experience AS a	  	
+	  	WHERE
+	  		work_experience_id=#{workExperienceId}
+	  
+	  </delete>		
+</mapper>

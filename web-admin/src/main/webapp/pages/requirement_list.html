@@ -1,0 +1,87 @@
+<div id="ft" style="padding: 2px 5px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteReq()"></a> 
+	</div>
+<table id="flusher" class="easyui-datagrid" title="需求列表" style="height:550px"
+            data-options="singleSelect:true,url:'../requirements',onDblClickRow:showFull,onClickRow:getInfo,pagination:true,toolbar:'#ft',fitColumns:true">
+        <thead>
+            <tr>
+                <th data-options="field:'companyName',width:180">公司名字</th>
+                <th data-options="field:'position',width:160,formatter:getPos">招聘岗位</th>
+                <th data-options="field:'contacts',width:100">联系人</th>
+                <th data-options="field:'phoneNumber',width:120">联系电话</th>
+                <th data-options="field:'salaryMin',width:80">最低薪资</th>
+                <th data-options="field:'salaryMax',width:80">最高薪资</th>
+                <th data-options="field:'requirementIntroduce',width:240">需求</th>
+                <th data-options="field:'releaseTimeStr',width:240">发布时间</th>
+            </tr>
+        </thead>
+</table>
+
+<script>
+   var reqId = null;
+   var companyName = null;
+   var position = null;
+   var contacts = null;
+   var phoneNumber = null;
+   var salaryMin = null;
+   var salaryMax = null;
+   var requirementIntroduce = null;
+   var releaseTimeStr = null;
+   
+   function getPos(value,row,index){
+	   if(value.positionName)
+	     return value.positionName;
+	   else
+		 return "";
+   }
+   
+   function getInfo(index,row){
+		reqId=row.requirementId;
+		companyName = row.companyName;
+		position = row.position.positionName;
+		contacts = row.contacts;
+		phoneNumber = row.phoneNumber;
+		salaryMin = row.salaryMin;
+		salaryMax = row.salaryMax;
+		requirementIntroduce = row.requirementIntroduce;
+		releaseTimeStr = row.releaseTimeStr;
+	}
+   
+   function showFull(index, row) {
+		openWindow("需求详细信息", 600, 400,"../query_req_by_id?requirementId=" + row.requirementId );
+	}
+   
+   function deleteReq(){
+   		if(reqId!=null&&reqId>0){
+   			$.messager.confirm('Confirm', '确认删除?', function(r){
+   			if (r){
+   				 $.ajax({
+   				     url:"../delete_requirement",
+   					 type:"post",
+   					 dataType:"json",
+   					 data:{ 
+   					           "requirementId":reqId								          
+   						  },
+   				     success:function(da){	
+   				    	 if(da.code=="10001"){
+   				    	     alert(da.msg)
+   				    	 }else{
+   				    		 alert(da.msg)
+   				    	 }							    	 
+   				    	 $("#flusher").datagrid("reload"); 	
+   				    	reqId=null;
+   				     },
+   					 error:function(){
+   						 alert("删除失败");
+   					 }  
+   				});			
+   			}
+   		});
+   		}
+   		else{
+   			alert("选择要删除的行！");
+   		}
+   }
+   
+   
+</script>

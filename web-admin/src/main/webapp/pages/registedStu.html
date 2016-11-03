@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>所有已注册码士信息</title>
+</head>
+
+<body>
+<div id="ft" style="padding: 2px 5px;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteRegistedStu()"></a> 
+	</div>
+	<div class="easyui-panel" title="已注册码士">
+		<table cellpadding="5" class="easyui-datagrid" id="flusher"
+			data-options="url:'../registed_stu',pagination:true,pageSize:10,singleSelect:true,
+			fitColumns:true,onClickRow:getStuId,toolbar:'#ft'"
+			style="height: 400px">
+			<thead>
+				<tr>
+					<th data-options="field:'studentName',width:100">学员姓名</th>
+					<th data-options="field:'studentQQ',width:100">学员QQ</th>
+					<th data-options="field:'studentPhone',width:100">学员手机</th>
+					<th data-options="field:'studentCity',width:100">学员城市</th>
+					<th data-options="field:'studentRegisterIp',width:100">学员注册IP</th>
+					<th data-options="field:'userId',width:100">微信用户名</th>
+					<th data-options="field:'releaseTimeStr',width:200">注册时间</th>
+				</tr>
+				<thead>
+		</table>
+
+	</div>
+<script>
+var stuId = null;
+function getStuId(index,row){
+	 stuId=row.studentId;
+}
+function deleteRegistedStu(){
+		if(stuId!=null&&stuId>0){
+			$.messager.confirm('Confirm', '确认删除?', function(r){
+			if (r){
+				 $.ajax({
+				     url:"../delete_registed_stu",
+					 type:"post",
+					 dataType:"json",
+					 data:{ 
+					           "studentId":stuId								          
+						  },
+				     success:function(da){	
+				    	 if(da.code=="10001"){
+				    	     alert(da.msg)
+				    	 }else{
+				    		 alert(da.msg)
+				    	 }							    	 
+				    	 $("#flusher").datagrid("reload");
+				    	 stuId = null;
+				     },
+					 error:function(){
+						 alert("删除失败");
+					 }  
+				});			
+			}
+		});
+		}
+		else{
+			alert("选择要删除的行！");
+		}
+}
+</script>
+
+</body>
+
+</html>

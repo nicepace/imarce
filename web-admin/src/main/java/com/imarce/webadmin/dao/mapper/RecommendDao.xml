@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imarce.webadmin.dao.RecommendDao">
+	<select id="queryRecommend" resultType="com.imarce.webadmin.entity.Recommend">
+		SELECT
+			recommend_id,
+			candidate_name,
+			candidate_position,
+			candidate_phone,
+			recommend_name,
+			recommend_phone,
+			user_id,
+			release_time
+		FROM
+			recommend
+		ORDER BY
+			release_time
+		DESC
+		LIMIT
+			#{start},#{rows}
+	</select>
+	<select id="countRecommend" resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			recommend
+	</select>
+	
+	 <delete id="deleteRecommend">
+	  DELETE 
+	  FROM 
+	  	recommend 
+	  WHERE 
+	  	recommend_id = #{recommendId}
+	  </delete>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imarce.webadmin.dao.KnowledgeDao">
+	<!-- 根据技能id查询技能知识表 -->
+	<select id="queryKnowledgeBySkillModule" resultType="KnowledgeVO">
+		SELECT
+			k.knowledge_id as id,
+			k.knowledge_name
+		FROM
+			knowledge k
+		WHERE
+			k.skillmodule_id=#{skillModuleid}
+	</select>
+	
+	<!-- 根据id查询技能知识表 -->
+	<select id="queryKnowledgeById" resultType="Knowledge">
+		SELECT
+			k.knowledge_id,
+			k.knowledge_name,
+			k.knowledge_note
+		FROM
+			knowledge k
+		WHERE
+			k.knowledge_id=#{knowledgeId}
+	</select>
+
+	<!-- 添加技能知识 -->
+	<insert id="addKnowledge">
+		INSERT INTO knowledge (
+			knowledge_name,
+			skillmodule_id,
+			knowledge_note
+		)
+		VALUES
+		( 
+			#{knowledgeName},
+			#{skillModule.skillModuleId},
+			#{knowledgeNote}
+		)
+	</insert>
+
+	<!-- 修改技能知识 -->
+	<update id="updateKnowledge" parameterType="Knowledge">
+		UPDATE
+			knowledge
+		SET
+			knowledge_name = #{knowledgeName},
+			knowledge_note = #{knowledgeNote}
+		WHERE
+			knowledge_id = #{knowledgeId}
+	</update>
+	
+	<delete id="deleteKnowledge">
+	    DELETE
+	    FROM
+	        knowledge
+	    WHERE
+	        knowledge_id=#{knowledgeId}
+	</delete>
+	
+	<!-- 根据知识id查询技能知识表 -->
+	<select id="querySkillModuleIdByKnowledge" resultType="java.lang.Integer">
+		SELECT
+			k.skillmodule_id as id
+		FROM
+			knowledge k
+		WHERE
+			k.knowledge_id = #{knowledgeId}
+	</select>
+</mapper>

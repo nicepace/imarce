@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imarce.webadmin.dao.PositionSkillModuleDao">
+	<!-- 根据岗位id查询岗位技能表 -->
+	<select id="querySkillByPosition" resultType="SkillVO">
+		SELECT 
+		  ps.skillmodule_id as id,
+		  s.skillmodule_name
+		FROM
+		  position_skillmodule ps
+		JOIN
+		  skillmodule s
+		ON
+		  ps.skillmodule_id=s.skillmodule_id
+		WHERE
+		  ps.position_id=#{positionId}
+	</select>
+	<!-- 添加新增岗位技能和岗位的关系 -->
+	<insert id="addRelationship">
+		INSERT INTO position_skillmodule (
+			position_id,
+			skillmodule_id
+		) 
+		VALUES
+		(
+			#{position.positionId},
+			#{skillModule.skillModuleId}
+		)
+	  </insert>
+</mapper>

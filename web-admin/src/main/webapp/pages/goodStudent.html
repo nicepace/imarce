@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>优秀学员信息</title>
+</head>
+
+<body>
+	<div id="ft" style="padding: 2px 5px;">
+		<a href="#" onclick="addExlentStu()" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteExlentStu()"></a> 
+		
+	</div>
+	<div class="easyui-panel" title="优秀学员">
+		<table cellpadding="5" class="easyui-datagrid"  id="flusher"
+			data-options="url:'../good_stu',pagination:true,pageSize:10,singleSelect:true,
+            	fitColumns:true,onDblClickRow:showFull,onClickRow:getStuId,toolbar:'#ft'"
+			style="height: 500px">
+			<thead>
+				<tr>
+					<th data-options="field:'headPicture',width:70,formatter:initUserHead">头像</th>
+					<th data-options="field:'studentName',width:80">姓名</th>
+					<th data-options="field:'birthdayStr',width:70">出生日期</th>
+					<th data-options="field:'position',width:150,formatter:getPosition">岗位</th>
+					<th data-options="field:'level',width:50,formatter:getLevel">级别</th>
+					<th data-options="field:'workTime',width:80">工作年限</th>
+					<th data-options="field:'area',width:80">工作区域</th>
+					<th data-options="field:'salary',width:60,align:'right'">薪资</th>
+					<th data-options="field:'employed',width:200">入职公司</th>
+					<th data-options="field:'workDateStr',width:120">入职时间</th>
+					<th data-options="field:'workState',width:80,formatter:getState,align:'center'">是否已入职</th>
+				</tr>
+			<thead>
+		</table>
+	</div>
+		<script>
+		 	var StuId=null;
+		 	function getStuId(index,row){
+		 		stuId=row.studentId;
+		 	}
+		 	function deleteExlentStu(){
+		 		if(stuId!=null&&stuId>0){
+		 			$.messager.confirm('Confirm', '确认删除?', function(r){
+						if (r){
+							 $.ajax({
+							     url:"../delete_stu",
+								 type:"post",
+								 dataType:"json",
+								 data:{ 
+								           "studentId":stuId								          
+									  },
+							     success:function(da){	
+							    	 if(da.code=="10001"){
+							    	     alert(da.msg)
+							    	 }else{
+							    		 alert(da.msg)
+							    	 }							    	 
+							    	 $("#flusher").datagrid("reload"); 							         
+							     },
+								 error:function(){
+									 alert("删除失败")
+								 }  
+							});			
+						}
+					});
+		 		}
+			}
+
+
+		 	
+			function addExlentStu() {
+				openWindow("添加优秀学员", 600, 460, "addExlentStu.html");
+			}
+			
+			function updateStu() {
+				openWindow("修改学员信息", 600, 460, "stu_update.jsp");
+			}
+			
+			function initUserHead(value, row, index) {
+				if (value) {
+					return "<img src='../" + value + "' width='40' height='40'/>";
+				} else
+					return "";
+			}
+			function getPosition(value, row, index) {
+				if (value && value.positionName)
+					return value.positionName;
+				else
+					return "";
+			}
+
+			function getLevel(value, row, index) {
+				if (value && value.levelName)
+					return value.levelName;
+				else
+					return "";
+			}
+
+			function getState(value, row, index) {
+				if (value == 0)
+					return "否";
+				else
+					return "是";
+			}
+
+			function showFull(index, row) {
+				openWindow("学员详细信息", 600, 460,"../query_registed_stu_by_id?studentId=" + row.studentId);
+			}
+		</script>
+	</div>
+
+</body>
+</html>

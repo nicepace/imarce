@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imarce.webadmin.dao.LevelDao">
+	<select id="queryLevel" resultType="Level">
+		SELECT
+			level_id,
+			level_name,
+			level_picture,
+			level_desc
+		FROM
+			level
+		ORDER BY
+			level_id
+			
+	<if test="isQueryAll==false">
+		LIMIT
+			#{start},#{rows}
+	</if>
+	</select>	
+		<select id="levelForSelect" resultType="Level">
+		SELECT
+			level_id,
+			level_name,
+			level_picture,
+			level_desc
+		FROM
+			level
+		ORDER BY
+			level_id
+			
+	</select>
+	<select id="countLevel" resultType="java.lang.Integer">
+           SELECT 
+               COUNT(1) 
+           FROM 
+               level
+	  </select>
+	  
+	  
+	  
+	  <select id="queryLevelById" resultType="Level">
+		SELECT
+			level_id,
+			level_name,
+			level_picture,
+			level_desc
+		FROM
+			level
+		WHERE 
+		    level_id = #{lid}
+	</select>
+	<update id="updateLevel" parameterType="com.imarce.webadmin.entity.Level">
+		UPDATE
+			level
+		SET
+			level_name=#{levelName},
+			level_picture=#{levelPicture},
+			level_desc=#{levelDesc}
+		WHERE
+			level_id=#{levelId}
+	</update>
+	<insert id="insertLevel" parameterType="Level" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+			level(
+				level_name,
+				level_desc)
+			VALUES(
+				#{levelName},
+				#{levelDesc}
+				)			
+	</insert>
+	
+	<delete id="deleteLevel">
+	    DELETE
+	    FROM
+	        level
+	    WHERE
+	        level_id=#{levelId}
+	</delete>
+</mapper>

@@ -1,0 +1,65 @@
+
+<div id="ft" style="padding:2px 5px;">
+		<a href="#" onclick="addPosition()" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+		<a href="#" onclick="deletePosition()" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+</div>
+<table id="refresh" class="easyui-datagrid" title="岗位维护" style="height:480px"
+            data-options="singleSelect:true,url:'../position',singleSelect:true,
+           pagination:true,onDblClickRow:updatePosition,onClickRow:getPositionId,toolbar:'#ft'">
+        <thead>
+            <tr>
+                <th data-options="field:'positionName',width:180">岗位</th>
+                <th data-options="field:'positionDesc',width:280">岗位描述</th>             
+            </tr>
+        </thead>
+</table>
+
+<script>
+ function updatePosition(index,row){
+	 
+	openWindow("编辑岗位信息",400,300,"../view_position?pid="+row.positionId);
+ }
+ function addPosition(){
+	 openWindow("添加岗位信息",400,300,"fragment/position_add.html");
+ }
+ 
+var PositionId=null;
+function getPositionId(index,row){
+	positionId=row.positionId;
+}
+function deletePosition(){
+	var row=$('#refresh').datagrid('getSelected'); 
+	if(row==null){
+		$.messager.alert("提示","请选择要删除的行！");
+		return;
+	} 
+	if(positionId!=null&&positionId>0){
+		$.messager.confirm('提示', '确认要删除吗?', function(r){
+			if (r){
+				 $.ajax({
+					    url:"../delete_position_basic",
+						type:"post",
+						dataType:"json",
+						data:{ 
+						         "positionId":positionId								          
+							 },
+					    success:function(da){	
+					    	if(da.code=="10001"){
+					    		$.messager.alert("提示","删除成功！");	 
+					    	}else{
+					    		$.messager.alert("提示","该岗位被占用，无法删除！");	 
+					    	}							    	 
+					    	$("#refresh").datagrid("reload");
+					    	positionId=null;
+					    },
+						error:function(){
+							$.messager.alert("提示","该岗位被占用，无法删除！");
+						}  
+				});			
+			}
+		});
+	}
+}
+</script>
+
+

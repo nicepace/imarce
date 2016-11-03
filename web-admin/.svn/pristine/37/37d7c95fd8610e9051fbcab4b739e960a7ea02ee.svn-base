@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.imarce.webadmin.dao.PositionDao">
+	  
+	  <select id="queryPosition" resultMap="positionMap">
+				  SELECT 
+				      position_name,
+				      position_id,
+				      position_desc
+					FROM
+					  position
+					ORDER BY
+			          position_id
+			     
+		            LIMIT
+			          #{start},#{rows}
+	       
+			          
+	  </select>
+	  
+	  <resultMap type="Position" id="positionMap">
+	       <id column="position_name" property="positionName"/>
+	       <id column="position_id" property="positionId"/>
+	       <id column="position_desc" property="positionDesc"/>
+	  </resultMap>
+
+	  <select id="countPosition" resultType="java.lang.Integer">
+           SELECT 
+               COUNT(1) 
+           FROM 
+               position
+	  </select>
+	  
+	  
+	  <!--   -->
+	  <select id="queryPositionForSelect" resultMap="positionSelectMap">
+				 SELECT 
+				      position_name,
+				      position_id,
+				      position_desc
+				 FROM
+					  position 
+	  </select>
+	  <resultMap type="OptionVO" id="positionSelectMap">
+	       <result column="position_id" property="id"/>
+	       <result column="position_name" property="text"/>
+	  </resultMap>
+	  
+	  <select id="queryPositionById" resultType="Position">
+		SELECT
+			position_id,
+			position_name,
+			position_desc
+		FROM
+			position
+		WHERE 
+		    position_id = #{pid}
+	</select>
+	
+		  <insert id="addPositionBasic" parameterType="Position" keyProperty="id" useGeneratedKeys="true">
+	        INSERT INTO position (
+			  position_name,
+			  position_desc
+			) 
+			VALUES
+			  (
+			    #{positionName},
+			    #{positionDesc}
+			  ) 
+	  </insert>
+	  
+	 <update id="editPosition" parameterType="Level">
+		UPDATE
+			position
+		SET
+			position_name=#{positionName},
+			position_desc=#{positionDesc}
+		WHERE
+			position_id=#{positionId}
+	</update>
+	
+	<delete id="deletePosition">
+	    DELETE
+	    FROM
+	        position
+	    WHERE
+	        position_id=#{positionId}
+	</delete>
+	 
+	<!-- 查找岗位名称 -->
+	<select id="queryPositionName" resultType="Position">
+		SELECT 
+		  position_id,
+		  p.position_name
+		FROM
+		  `position` p
+	</select>
+</mapper>

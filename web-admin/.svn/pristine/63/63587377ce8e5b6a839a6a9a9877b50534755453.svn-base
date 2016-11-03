@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.imarce.webadmin.dao.OpinionsDao">
+	<!-- 查询意见表，获取全部意见信息 -->
+	<select id="queryOpinions" resultType="Opinions">
+		SELECT
+			o.opinion_id,
+			o.opinion,
+			o.user_id,
+			o.release_time
+		FROM
+			opinions o
+		ORDER BY
+			release_time DESC
+		LIMIT #{start}, #{rows}
+	</select>
+<!-- 	<resultMap type="Opinions" id="opinionsMap">
+		<id column="opinion_id" property="opinionId" />
+		<result column="user_id" property="userId" />
+		<result column="release_time" property="releaseTime" />
+	</resultMap> -->
+	
+	<!-- 查询意见表的意见数量 -->
+	<select id="countOpinions" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM
+			opinions
+	</select>
+	
+	<!-- 根据意见id查询意见表 -->
+	<select id="queryOpinionById" resultType="Opinions">
+		SELECT
+			o.opinion_id,
+			o.opinion,
+			o.user_id,
+			o.release_time
+		FROM
+			wechat_imarce.opinions o
+		WHERE
+			o.opinion_id=#{opinionId} ;
+	</select>
+<!-- 	<resultMap type="Opinions" id="opinionMap">
+		<id column="opinion_id" property="opinionId" />
+		<result column="user_id" property="userId" />
+		<result column="release_time" property="releaseTime" />
+	</resultMap> -->
+	
+	<delete id="deleteOpinion">
+	  DELETE 
+	  FROM 
+	  	opinions 
+	  WHERE 
+	  	opinion_id = #{opinionId}
+	  </delete>
+</mapper>
