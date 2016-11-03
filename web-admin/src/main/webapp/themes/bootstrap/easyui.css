@@ -2873,3 +2873,33 @@
   background: transparent;
   color: #333;
 }
+.easyui-layout .easyui-accordion ul{
+	list-style-type: none;
+	padding-left:5px;
+}
+.easyui-layout .easyui-accordion  li,li:visited{
+	
+	line-height:25px;
+	height:25px;
+	width:70%;
+	padding-left:45px;
+    border: 1px solid #d4d4d4;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    background:#ececec url('../icons/pencil.png') no-repeat 20px 5px;
+}
+
+.easyui-layout .easyui-accordion li:hover a{
+	color:#0081C2;
+}
+.easyui-layout .easyui-accordion li a:hover{
+	text-decoration: none;
+	color:#0081C2;
+}
+.easyui-layout .easyui-accordion li a,a:visited{
+	height: 25px;
+	line-height:25px;
+	text-decoration: none;
+	background-color: #ececec;
+}

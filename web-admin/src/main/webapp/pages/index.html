@@ -15,13 +15,13 @@
         <div id="aa" class="easyui-accordion" style="position: absolute; top: 27px; left: 0px; right: 0px; bottom: 0px;">
  
             <div title="博文管理"  style="overflow: auto; padding: 10px;">
-                <ul class="easyui-tree">
+                <ul >
 
                             <li>
-                                <span>File 2</span>
+                                <a>File 2</a>
                             </li>
                             <li>
-                                <span>File 3</span>
+                                <a>File 3</a>
                             </li>
                 </ul>
                   
@@ -29,7 +29,7 @@
             </div>
 			<div title="新闻管理" selected="true" style="padding: 10px;">
 
-				<ul class="easyui-tree">
+				<ul>
 					<li><span><a href="index.jsp">微信端</a></span></li>
 					<li><a href="javascript:;" onclick="nvai('goodStudent.html');">优秀学员</a>
 					</li>
@@ -57,13 +57,13 @@
 
 			</div>
 			<div title="资源管理">
-                  <ul class="easyui-tree">
+                  <ul>
 
                             <li>
-                                <span>File 2</span>
+                                <a>File 2</a>
                             </li>
                             <li>
-                                <span>File 3</span>
+                                <a>File 3</a>
                             </li>
                 </ul>
             </div>
@@ -137,12 +137,6 @@
                var tabTitle = $(this).text();
                var url = $(this).attr("href");
                addTab(tabTitle, url);
-               $('.easyui-accordion li div').removeClass("selected");
-               $(this).parent().addClass("selected");
-           }).hover(function () {
-               $(this).parent().addClass("hover");
-           }, function () {
-               $(this).parent().removeClass("hover");
            });
  
            function addTab(subtitle, url) {
