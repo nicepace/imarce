@@ -20,8 +20,9 @@ public class UserController {
 	
 	@RequestMapping("/queryUser")
 	@ResponseBody
-	public DataGridData queryRecommend(Pager page){
+	public DataGridData queryUser(Pager page){
 		DataGridData dataGridData=userService.queryUser(page);
+		
 		return dataGridData;
 	}
 	@RequestMapping("/delete_user")

@@ -24,6 +24,7 @@ public class UserService {
 		DataGridData result=new DataGridData();
 		try {
 			List<User> ls=userDao.queryUser(page);
+			System.out.println(ls.toString());
 			result.setRows(ls);
 			int count=userDao.countUser();
 			result.setTotal(count);
