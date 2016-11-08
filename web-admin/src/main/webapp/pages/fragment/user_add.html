@@ -9,27 +9,40 @@
 		<tr>
 			<td align="left">密码:</td>
 			<td>
-				<input name="password" class="easyui-textbox" data-options="required:true"/>
+				<input  name="password" class="easyui-textbox" data-options="required:true"/>
+				
+          
 			</td>
+		</tr>
+		<tr>
+		<td align="left">角色:</td>
+		<td>
+	        <select id="role" class="easyui-combobox" name="role"   data-options="width:200px;">
+	            <option value="1">管理员</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                </select>
+		</td>
 		</tr>
 				
 	</table>
 
             <p style="text-align:center">
            
-              <a id="basic_btn"  href="javascript:;"  onclick="add_User()"  class="easyui-linkbutton" >保存信息
+              <a id="basic_btn"  href="javascript:;"  onclick="add_User()"  class="easyui-linkbutton" 
+               data-options="iconCls:'icon-save'">保存信息
               </a>
             </p>
             <p id="basic_tip" style="text-align:center"></p>
         </div>
   <script>
     function add_User(){
-    	 if(document.getElementById("name").value==""||document.getElementById("password").value==""){
+    	 if(document.getElementById("name").value==""||document.getElementById("password").value==""||document.getElementById("role").value){
     		 $("#basic_tip").html("<font color='red' >用户密码不能为空!</font>");
     	    }
     	 else{
     		 $.ajax({
-    	 
     	     url:"../add_user",
     		 type:"post",
     		 dataType:"json",

@@ -41,12 +41,14 @@
 	  <insert id="addUser" parameterType="User">
 	        INSERT INTO sys_user (
 			  user_name,
-			  user_pwd
+			  user_pwd,
+			  user_role
 			) 
 			VALUES
 			  (
 			    #{userName},
-			     #{userPwd}
+			     #{userPwd},
+			     #{roleId}
 			  ) 
 	  </insert>
 	

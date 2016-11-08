@@ -37,7 +37,7 @@ public class UserController {
 	@RequestMapping("/add_user")
 	@ResponseBody
 	public Result addUser(User user){
-		
+		System.out.println("\n\n\n\n\n\n\n"+user.toString());
 		Result result = new Result();
 		if(!userService.addUser(user)){
 			result.setInfo("10002","用户添加失败!");
