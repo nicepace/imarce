@@ -51,5 +51,23 @@
 			     #{roleId}
 			  ) 
 	  </insert>
-	
+	 <select id="queryUserById" resultType="User">
+			SELECT
+		  *
+		FROM
+			sys_user a ,sys_role b
+	    WHERE
+	      a.user_role=b.role_id
+		and
+		    user_id = #{userid}
+	</select>
+	 <update id="editUser" parameterType="User">
+		UPDATE
+			sys_user
+		SET
+			user_name=#{userName},
+			user_role=#{roleId}
+		WHERE
+			user_id=#{userId}
+	</update>
 </mapper>

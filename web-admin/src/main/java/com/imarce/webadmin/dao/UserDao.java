@@ -18,4 +18,9 @@ public interface UserDao {
 
 	public int addUser(User user)  throws Exception ;
 
+	public User queryUserById(int userid);
+
+
+	public int editUser(User user);
+
 }

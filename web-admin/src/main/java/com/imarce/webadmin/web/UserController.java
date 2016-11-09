@@ -2,6 +2,7 @@ package com.imarce.webadmin.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -43,6 +44,21 @@ public class UserController {
 			result.setInfo("10002","用户添加失败!");
 		}
 		return result;
+	}
+	@RequestMapping("/ShowUserById")
+	public String  ShowUserById(Model model ,int userid){
+		 User user= userService.ShowUserById(userid);
+		model.addAttribute("user", user);
+		return "fragment/user_editor";
+	}
+	@RequestMapping("/editUser")
+	@ResponseBody
+	public Result editPosition(User user){		
+			Result result = new Result();
+			if(!userService.editUser(user)){
+				result.setInfo("10002","操作失败!");
+			}
+			return result;
 	}
 	
 }
