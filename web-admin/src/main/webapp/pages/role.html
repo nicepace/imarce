@@ -1,20 +1,15 @@
 <div id="ft" style="padding: 2px 5px;">
-           <a href="#" onclick="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+         <a href="#" onclick="addUser()" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="deleteRec()"></a> 
 	</div>
 <div class="easyui-panel" title="角色">
 	<table id="flusher" class="easyui-datagrid" data-options=
-	"url:'../queryRecommend',pagination:true,singleSelect:true,onClickRow:getRecId" 
+	"url:'../queryRole',pagination:true,singleSelect:true,onClickRow:getRecId,onDblClickRow:updateUser" 
 	style="height:480px">
 		<thead>
 			<tr>
-				<th data-options="field:'candidateName',width:100">候选人姓名</th>
-				<th data-options="field:'candidatePosition',width:150">候选人岗位</th>
-				<th data-options="field:'candidatePhone',width:100">候选人手机</th>
-				<th data-options="field:'recommendName',width:100">推荐人姓名</th>
-				<th data-options="field:'recommendPhone',width:100">推荐人手机</th>
-				<th data-options="field:'userId',width:100">平台使用者</th>
-				<th data-options="field:'releaseTimeStr',width:150">发布时间</th>
+				<th data-options="field:'roleId',width:100">角色Id</th>
+				<th data-options="field:'roleName',width:150">角色名</th>
 			</tr>
 		</thead>
 	</table>
@@ -24,18 +19,25 @@
 
 var RecId = null;
 function getRecId(index,row){
-	RecId=row.recommendId;
+	RecId=row.roleId;
+}
+function updateUser(index,row){
+	 
+	openWindow("编辑角色信息",400,150,"../ShowroleById?roleid="+row.roleId);
+ }
+function addUser(){
+	 openWindow("添加角色信息",400,200,"fragment/role_add.html");
 }
 function deleteRec(){
 		if(RecId!=null&&RecId>0){
 			$.messager.confirm('Confirm', '确认删除?', function(r){
 			if (r){
 				 $.ajax({
-				     url:"../delete_recommend",
+				     url:"../delete_role",
 					 type:"post",
 					 dataType:"json",
 					 data:{ 
-					           "recommendId":RecId								          
+					           "roleid":RecId								          
 						  },
 				     success:function(da){	
 				    	 if(da.code=="10001"){

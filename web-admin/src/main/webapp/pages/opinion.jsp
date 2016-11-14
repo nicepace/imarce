@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
 	<c:set value="${Math.random()}" var="num"/>
-    <link rel="stylesheet" href="${path}/css/light7.min2.css?v=${num}">
+    <link rel="stylesheet" href="${path}/wechat-assets/css/light7.min2.css?v=${num}">
 
   </head>
   <body>
@@ -32,7 +32,7 @@
 	  </div>
    </div>
     <script type='text/javascript' src='${path}/assets/js/jquery-2.1.4.js?v=${num}' charset='utf-8'></script>
-    <script type='text/javascript' src='${path}/js/light7.js?v=${num}' charset='utf-8'></script>
+    <script type='text/javascript' src='${path}/wechat-assets/js/light7.js?v=${num}' charset='utf-8'></script>
   </body>
 </html>
 

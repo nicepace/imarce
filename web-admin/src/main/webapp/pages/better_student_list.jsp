@@ -13,9 +13,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
 	<c:set value="${Math.random()}" var="num"/>
-    <link rel="stylesheet" href="${path}/css/light7.min.css?v=${num}">
-    <link rel="stylesheet" href="${path}/css/light7-swiper.min.css?v=${num}">
-    <link rel="stylesheet" href="${path}/css/betterStu.css">
+    <link rel="stylesheet" href="${path}/wechat-assets/css/light7.min.css?v=${num}">
+    <link rel="stylesheet" href="${path}/wechat-assets/css/light7-swiper.min.css?v=${num}">
+    <link rel="stylesheet" href="${path}/wechat-assets/css/betterStu.css">
 
 <style>
 
@@ -28,8 +28,8 @@
  
 <header class="bar bar-nav" style="padding:0px;margin:0px;background-color: #fff;border-bottom: 1px solid #fff;">
 	<div class="row">
-	<button id="btn" >所有岗位<img src="../images/arrow-1.png" width="14.5" height="7" style="margin-right: 5% ; position:absolute; top:38%;right:2%" id="arrow-left"/></button> 
-	<button id="btn2">所有等级</button> <img src="../images/arrow-1.png" width="14.5" height="7" style="margin-right: 8% ; position:absolute; top:38%;right:2%" id="arrow-right"/>
+	<button id="btn" >所有岗位<img src="../wechat-assets/images/arrow-1.png" width="14.5" height="7" style="margin-right: 5% ; position:absolute; top:38%;right:2%" id="arrow-left"/></button> 
+	<button id="btn2">所有等级</button> <img src="../wechat-assets/images/arrow-1.png" width="14.5" height="7" style="margin-right: 8% ; position:absolute; top:38%;right:2%" id="arrow-right"/>
     </div>
 </header> 
 
@@ -77,7 +77,7 @@
   </div>
 </div> 
     <script type='text/javascript' src='${path}/assets/js/jquery-2.1.4.js?v=${num}' charset='utf-8'></script>
-    <script type='text/javascript' src='${path}/js/light7.js?v=${num}' charset='utf-8'></script>
+    <script type='text/javascript' src='${path}/wechat-assets/js/light7.js?v=${num}' charset='utf-8'></script>
   </body>
 </html>
 
@@ -171,7 +171,7 @@
  
    $(document).on('click','#btn', function () {
 	  var url = "${path}/better_student/go_positions";
-	  $("#arrow-left").attr("src","../images/arrow-2.png");	
+	  $("#arrow-left").attr("src","../wechat-assets/images/arrow-2.png");	
 	  $.ajax({
 			url:url,
 			type:"post",
@@ -188,7 +188,7 @@
 
    $(document).on('click','#btn2', function () {
 	   var url = "${path}/better_student/go_levels";
-	   $("#arrow-right").attr("src","../images/arrow-2.png");	 
+	   $("#arrow-right").attr("src","../wechat-assets/images/arrow-2.png");	 
 	   $.ajax({
 			url:url,
 			type:"post",

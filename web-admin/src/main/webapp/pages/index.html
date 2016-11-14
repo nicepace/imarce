@@ -3,36 +3,88 @@
 <head>
 <title>i码士后台管理系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="../themes/bootstrap/easyui.css" rel="stylesheet" type="text/css" />
+<link href="../themes/bootstrap/easyui.css" rel="stylesheet"
+	type="text/css" />
 <link href="../themes/icon.css" rel="stylesheet" type="text/css" />
-<link href="../plugin/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
-<link href="../plugin/jcrop/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
-</head>
- <body class="easyui-layout">
-       <div data-options="region:'north',split:true" style="height:60px;"></div>
-        <div region="west" split="true" title="导航菜单" style="width: 200px;">
- 
-        <div id="aa" class="easyui-accordion" style="position: absolute; top: 27px; left: 0px; right: 0px; bottom: 0px;">
- 
-            <div title="博文管理"  style="overflow: auto; padding: 10px;">
-                <ul >
+<link href="../plugin/uploadify/uploadify.css" rel="stylesheet"
+	type="text/css" />
+<link href="../plugin/jcrop/jquery.Jcrop.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="../assets/css/styles.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/960.css" rel="stylesheet" type="text/css" />
 
-                            <li>
-                                <a>File 2</a>
-                            </li>
-                            <li>
-                                <a>File 3</a>
-                            </li>
-                </ul>
-                  
-   
-            </div>
-			<div title="新闻管理" selected="true" style="padding: 10px;">
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',split:true" style="height: 80px;">
+		<div id="header" class="png_bg">
+
+			<div id="head_wrap" class="container_12">
+
+				<div id="logo" class="grid_4">
+					<h1>
+						i码士<span>后台管理系统</span>
+					</h1>
+				</div>
+				<!-- end logo -->
+
+				<!-- start control panel -->
+				<div id="controlpanel" class="grid_8">
+
+					<ul>
+
+						<li><p>
+								<strong> <span> <!-- 日历 --> <SCRIPT
+											type=text/javascript src="../assets/js/clock.js"></SCRIPT> <SCRIPT
+											type=text/javascript>
+												showcal();
+											</SCRIPT>
+								</span></strong>
+							</p></li>
+						<li><a href="#" class="first">设置</a></li>
+						<li><a href="javascript:;" onclick="exitlogin()">退出登录</a></li>
+
+					</ul>
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+
+	<div region="west" split="true" title="导航菜单" style="width: 200px;">
+
+		<div id="aa" class="easyui-accordion"
+			style="position: absolute; top: 27px; left: 0px; right: 0px; bottom: 0px;">
+
+			<div title="微信端" style="overflow: auto; padding: 10px;">
+				<ul>
+
+					<li><a href="../release_requirement/to">发布需求</a></li>
+					<li><a href="../base/jump?page=entry_student_list">查看优秀学员</a>
+					</li>
+					<li><a href="../base/jump?page=better_student_list">优秀学员</a>
+					</li>
+					<li><a href="../base/jump?page=resume_recommendation">添加推荐人</a>
+					</li>
+					<li><a href="../base/jump?page=opinion">添加意见</a></li>
+				</ul>
+
+
+			</div>
+			<div title="后台管理" selected="true" style="padding: 10px;">
 
 				<ul>
-					<li><span><a href="index.jsp">微信端</a></span></li>
 					<li><a href="javascript:;" onclick="nvai('goodStudent.html');">优秀学员</a>
 					</li>
+					
 					<li><a href="javascript:;" onclick="nvai('registedStu.html');">新码士</a>
 					</li>
 					<li><a href="javascript:;" onclick="nvai('employ_tend.html');">招聘新码士</a>
@@ -43,38 +95,78 @@
 						onclick="nvai('requirement_list.html');">需求列表</a></li>
 					<li><a href="javascript:;"
 						onclick="nvai('opinions_list.html');">意见列表</a></li>
+
+
+
+				</ul>
+
+			</div>
+			<div title="基础管理">
+				<ul>
+
 					<li><a href="javascript:;"
 						onclick="nvai('LevelMaintenance.html');">等级维护</a></li>
 					<li><a href="javascript:;" onclick="nvai('position.html');">岗位维护</a></li>
 					<li><a href="javascript:;"
 						onclick="nvai('skill_for_position.html');">技能维护</a></li>
 					<li><a href="javascript:;" onclick="nvai('user.html');">用户维护</a></li>
-
-
-					<li><a href="javascript:;" onclick="exitlogin()">退出登录</a></li>
+						<li><a href="javascript:;" onclick="nvai('role.html');">角色维护</a></li>
 				</ul>
-
 			</div>
-			<div title="资源管理">
-                  <ul>
+		</div>
+	</div>
+	
+	<div data-options="region:'center',title:'工作区'"
+		style="padding: 5px; background: #eee;" id="mainPanel">
 
-                            <li>
-                                <a>File 2</a>
-                            </li>
-                            <li>
-                                <a>File 3</a>
-                            </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-        <div data-options="region:'center',title:'工作区'" style="padding:5px;background:#eee;" id="mainPanel"> 
-        
-        
-        </div>
-        
-    <div id="win" class="easyui-window" data-options="closed:true,modal:true"></div>
- 
+		<div id="top" class="top" width="500" height="100">
+			<table id="top" width="500" height="100">
+				<h1>
+					欢迎进入<span>i码士后台管理系统</span>
+				</h1>
+				系统提示：
+				<br /> 1=>如您在使用过程有发现出错请及时与我们取得联系；
+				<br /> 2=>强烈建议您将IE7以上版本或其他的浏览器
+			</table>
+		</div>
+		
+		
+ <div >
+	<div style="float:left"> 
+					<table cellpadding="5" class="easyui-datagrid" id="flusher"
+								title="自主简历"
+								data-options="url:'../registed_stu',pagination:true,pageSize:10,singleSelect:true,
+			fitColumns:true,toolbar:'#ft'"
+								style="height: 230px; width: 300px ;">
+								<thead>
+									<tr>
+										<th data-options="field:'studentName',width:50">姓名</th>
+										<th data-options="field:'studentPhone',width:80">手机</th>
+										<th data-options="field:'releaseTimeStr',width:170">注册时间</th>
+									</tr>
+									</thead>
+							</table>
+	</div>
+	<div>
+							<table class="easyui-datagrid" id="flusher" title="招聘意向表"
+								style="height: 230px; width: 300px "
+								data-options="singleSelect:true,url:'../employTend',pagination:true,fitColumns:true">
+								<thead>
+									<tr>
+										<th
+											data-options="field:'student',width:50,formatter:getStudent">姓名</th>
+										<th data-options="field:'employPhone',width:80">手机</th>
+										<th data-options="field:'releaseTimeStr',width:170">发布时间</th>
+									</tr>
+								</thead>
+							</table>
+			
+	</div>
+</div>
+			<div id="win" class="easyui-window"
+				data-options="closed:true,modal:true"></div>
+				
+</div>
 </body>
 
 </html>
@@ -82,43 +174,49 @@
 <script language="javascript" src="../scripts/jquery.form.js"></script>
 <script language="javascript" src="../scripts/jquery.easyui.min.js"></script>
 <script language="javascript" src="../scripts/easyui-lang-zh_CN.js"></script>
-<script language="javascript" src="../plugin/uploadify/jquery.uploadify.min.js"></script>
+<script language="javascript"
+	src="../plugin/uploadify/jquery.uploadify.min.js"></script>
 <script language="javascript" src="../plugin/jcrop/jquery.Jcrop.min.js"></script>
 
 
 
 <script>
-  function exitlogin(){
-	 $.ajax({
-		 url:"../exit_login",
-		 type:"post",
-		 dataType:"json",
-		 success:function(da){
-			 if(da.code="10001"){
-				 location.href="../login/login.html";
-			 }else{
-				 location.href="../login/login.html";
-			 }
-		 }
-	 })
-    
-  }
-  function nvai(page){
-	   $("#mainPanel").panel("refresh",page);
-  }
-  
-  function openWindow(title,width,height,url){
-	    $('#win').window("refresh",url);
-	    $('#win').window({
-			    inline:true,
-			    title:title,
-				width:width,
-				height:height
+	function getStudent(value, row, index) {
+		if (value && value.studentName)
+			return value.studentName;
+		else
+			return "";
+	}
+	function exitlogin() {
+		$.ajax({
+			url : "../exit_login",
+			type : "post",
+			dataType : "json",
+			success : function(da) {
+				if (da.code = "10001") {
+					location.href = "../login/login.html";
+				} else {
+					location.href = "../login/login.html";
+				}
+			}
+		})
+
+	}
+	function nvai(page) {
+		$("#mainPanel").panel("refresh", page);
+	}
+
+	function openWindow(title, width, height, url) {
+		$('#win').window("refresh", url);
+		$('#win').window({
+			inline : true,
+			title : title,
+			width : width,
+			height : height
 		});
 		$('#win').window("center");
 		$('#win').window("open");
-  }
- 
+	}
 </script>
 <script type="text/javascript">
 	// <![CDATA[
@@ -129,111 +227,129 @@
 	};
 	// ]]>
 </script>
+<script language="javascript" type="text/javascript">
+	//获得当前时间,刻度为一千分一秒
+	var initializationTime = (new Date()).getTime();
+	function showLeftTime() {
+		var now = new Date();
+		var year = now.getYear();
+		var month = now.getMonth();
+		var day = now.getDate();
+		var hours = now.getHours();
+		var minutes = now.getMinutes();
+		var seconds = now.getSeconds();
+		document.all.show.innerHTML = "" + year + "年" + month + "月" + day
+				+ "日 " + hours + ":" + minutes + ":" + seconds + "";
+		//一秒刷新一次显示时间
+		var timeID = setTimeout(showLeftTime, 1000);
+	}
+</script>
 <script language="JavaScript">
- 
-       $(document).ready(function () {
-           $('.easyui-accordion li a').click(function () {
-               var tabTitle = $(this).text();
-               var url = $(this).attr("href");
-               addTab(tabTitle, url);
-           });
- 
-           function addTab(subtitle, url) {
-               if (!$('#tabs').tabs('exists', subtitle)) {
-                   $('#tabs').tabs('add', {
-                       title: subtitle,
-                       content: createFrame(url),
-                       closable: true,
-                       width: $('#mainPanle').width() - 10,
-                       height: $('#mainPanle').height() - 26
-                   });
-               } else {
-                   $('#tabs').tabs('select', subtitle);
-              }
-               tabClose();
-           }
- 
- 
-           function createFrame(url) {
-               var s = '<iframe name="mainFrame" scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
-               return s;
-           }
- 
- 
-           function tabClose() {
-               /*双击关闭TAB选项卡*/
-               $(".tabs-inner").dblclick(function () {
-                   var subtitle = $(this).children("span").text();
-                   $('#tabs').tabs('close', subtitle);
-               })
- 
-               $(".tabs-inner").bind('contextmenu', function (e) {
-                   $('#mm').menu('show', {
-                       left: e.pageX,
-                       top: e.pageY,
-                   });
-                   var subtitle = $(this).children("span").text();
-                   $('#mm').data("currtab", subtitle);
-                   return false;
-               });
-           }
- 
-           //绑定右键菜单事件
-      function tabCloseEven() {
-               //关闭当前
-        $('#mm-tabclose').click(function () {
-                   var currtab_title = $('#mm').data("currtab");
-                   $('#tabs').tabs('close', currtab_title);
-               })
-               //全部关闭
-        $('#mm-tabcloseall').click(function () {
-                   $('.tabs-inner span').each(function (i, n) {
-                       var t = $(n).text();
-                      $('#tabs').tabs('close', t);
-                   });
-               });
- 
-               //关闭除当前之外的TAB
-               $('#mm-tabcloseother').click(function () {
-                   var currtab_title = $('#mm').data("currtab");
-                   $('.tabs-inner span').each(function (i, n) {
-                       var t = $(n).text();
-                       if (t != currtab_title)
-                           $('#tabs').tabs('close', t);
-                   });
-               });
-               //关闭当前右侧的TAB
-               $('#mm-tabcloseright').click(function () {
-                   var nextall = $('.tabs-selected').nextAll();
-                   if (nextall.length == 0) {
-                      //msgShow('系统提示','后边没有啦~~','error');
-                       alert('后边没有啦~~');
-                       return false;
-                   }
-                   nextall.each(function (i, n) {
-                       var t = $('a:eq(0) span', $(n)).text();
-                       $('#tabs').tabs('close', t);
-                   });
-                   return false;
-              });
-               //关闭当前左侧的TAB
-               $('#mm-tabcloseleft').click(function () {
-                   var prevall = $('.tabs-selected').prevAll();
-                   if (prevall.length == 0) {
-                       alert('到头了，前边没有啦~~');
-                       return false;
-                   }
-                   prevall.each(function (i, n) {
-                       var t = $('a:eq(0) span', $(n)).text();
-                       $('#tabs').tabs('close', t);
-                   });
-                   return false;
-               });
- 
-               //退出
-               $("#mm-exit").click(function () {
-                   $('#mm').menu('hide');
- 
-               })
-           }
-       });
+	$(document)
+			.ready(
+					function() {
+						$('.easyui-accordion li a').click(function() {
+							var tabTitle = $(this).text();
+							var url = $(this).attr("href");
+							addTab(tabTitle, url);
+						});
+
+						function addTab(subtitle, url) {
+							if (!$('#tabs').tabs('exists', subtitle)) {
+								$('#tabs').tabs('add', {
+									title : subtitle,
+									content : createFrame(url),
+									closable : true,
+									width : $('#mainPanle').width() - 10,
+									height : $('#mainPanle').height() - 26
+								});
+							} else {
+								$('#tabs').tabs('select', subtitle);
+							}
+							tabClose();
+						}
+
+						function createFrame(url) {
+							var s = '<iframe name="mainFrame" scrolling="auto" frameborder="0"  src="'
+									+ url
+									+ '" style="width:100%;height:100%;"></iframe>';
+							return s;
+						}
+
+						function tabClose() {
+							/*双击关闭TAB选项卡*/
+							$(".tabs-inner").dblclick(function() {
+								var subtitle = $(this).children("span").text();
+								$('#tabs').tabs('close', subtitle);
+							})
+
+							$(".tabs-inner").bind('contextmenu', function(e) {
+								$('#mm').menu('show', {
+									left : e.pageX,
+									top : e.pageY,
+								});
+								var subtitle = $(this).children("span").text();
+								$('#mm').data("currtab", subtitle);
+								return false;
+							});
+						}
+
+						//绑定右键菜单事件
+						function tabCloseEven() {
+							//关闭当前
+							$('#mm-tabclose').click(function() {
+								var currtab_title = $('#mm').data("currtab");
+								$('#tabs').tabs('close', currtab_title);
+							})
+							//全部关闭
+							$('#mm-tabcloseall').click(function() {
+								$('.tabs-inner span').each(function(i, n) {
+									var t = $(n).text();
+									$('#tabs').tabs('close', t);
+								});
+							});
+
+							//关闭除当前之外的TAB
+							$('#mm-tabcloseother').click(function() {
+								var currtab_title = $('#mm').data("currtab");
+								$('.tabs-inner span').each(function(i, n) {
+									var t = $(n).text();
+									if (t != currtab_title)
+										$('#tabs').tabs('close', t);
+								});
+							});
+							//关闭当前右侧的TAB
+							$('#mm-tabcloseright').click(function() {
+								var nextall = $('.tabs-selected').nextAll();
+								if (nextall.length == 0) {
+									//msgShow('系统提示','后边没有啦~~','error');
+									alert('后边没有啦~~');
+									return false;
+								}
+								nextall.each(function(i, n) {
+									var t = $('a:eq(0) span', $(n)).text();
+									$('#tabs').tabs('close', t);
+								});
+								return false;
+							});
+							//关闭当前左侧的TAB
+							$('#mm-tabcloseleft').click(function() {
+								var prevall = $('.tabs-selected').prevAll();
+								if (prevall.length == 0) {
+									alert('到头了，前边没有啦~~');
+									return false;
+								}
+								prevall.each(function(i, n) {
+									var t = $('a:eq(0) span', $(n)).text();
+									$('#tabs').tabs('close', t);
+								});
+								return false;
+							});
+
+							//退出
+							$("#mm-exit").click(function() {
+								$('#mm').menu('hide');
+
+							})
+						}
+					});

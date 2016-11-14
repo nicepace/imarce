@@ -34,8 +34,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
 	<c:set value="${Math.random()}" var="num"/>
-    <link rel="stylesheet" href="${path}/css/light7.min.css?v=${num}">
-    <link rel="stylesheet" href="${path}/css/light7-swiper.min.css?v=${num}">
+    <link rel="stylesheet" href="${path}/wechat-assets/css/light7.min.css?v=${num}">
+    <link rel="stylesheet" href="${path}/wechat-assets/css/light7-swiper.min.css?v=${num}">
 	<style>
         div.zoomMask{
             width:100%;
@@ -89,7 +89,7 @@
                       <span style="font-size:11px">${betterStu.student.position }</span>
                  </div>
                  <div class="user_level"  style="position:absolute;top:31%;right:8%">
-                     <img src="${path}/images/${betterStu.student.levelId }.png" width="40" height="44"/>
+                     <img src="${path}/wechat-assets/images/${betterStu.student.levelId }.png" width="40" height="44"/>
                  </div>
           </div>
           
@@ -104,17 +104,17 @@
           
           <div class="div_block white_bg">
                <ol style="height: 45px">
-                  <li style="padding-right:22%;border-right: #a1a0a1 solid 1px"><img src="${path}/images/iconfont-zs-rank.png" width="19" height="19" style="position:absolute;top:25%;left:5%"/><span style="position:absolute;top:15%;left:13%">i码士-P${betterStu.student.level }</span></li>
+                  <li style="padding-right:22%;border-right: #a1a0a1 solid 1px"><img src="${path}/wechat-assets/images/iconfont-zs-rank.png" width="19" height="19" style="position:absolute;top:25%;left:5%"/><span style="position:absolute;top:15%;left:13%">i码士-P${betterStu.student.level }</span></li>
                  
-                  <li style="padding-left:8%;padding-right:8%"><img src="${path}/images/iconfont-shijian-3.png" width="19" height="19" style="position:absolute;top:25%;left:43%"/><span style="position:absolute;top:15%;left:50%">${betterStu.student.workTime }&nbsp;年</span></li>
+                  <li style="padding-left:8%;padding-right:8%"><img src="${path}/wechat-assets/images/iconfont-shijian-3.png" width="19" height="19" style="position:absolute;top:25%;left:43%"/><span style="position:absolute;top:15%;left:50%">${betterStu.student.workTime }&nbsp;年</span></li>
                  
-                  <li style="padding-left: 20%;border-left: #a1a0a1 solid 1px"><img src="${path}/images/iconfont-didian-2.png" width="14.5" height="19" style="position:absolute;top:25%;left:73%"/><span style="position:absolute;top:15%;left:80%">${betterStu.student.area }</span></li>
+                  <li style="padding-left: 20%;border-left: #a1a0a1 solid 1px"><img src="${path}/wechat-assets/images/iconfont-didian-2.png" width="14.5" height="19" style="position:absolute;top:25%;left:73%"/><span style="position:absolute;top:15%;left:80%">${betterStu.student.area }</span></li>
                </ol>
           <div style="clear:both"></div>
           </div>
           
            <div class="card">
-			<div class="card-header" style="color:rgb(122,174,255)">工作经历<img src="${path}/images/iconfont-icon.png" width="17" height="17"/> </div>
+			<div class="card-header" style="color:rgb(122,174,255)">工作经历<img src="${path}/wechat-assets/images/iconfont-icon.png" width="17" height="17"/> </div>
 			<div class="card-content" style="color:rgb(100,100,100)">
 			<c:forEach items="${betterStu.workexperience }" var="worke" varStatus="statue">
 		      <div class="row">
@@ -143,7 +143,7 @@
           
           
            <div class="card">
-			<div class="card-header" style="color:rgb(122,174,255)">项目经历<img src="${path}/images/iconfont-wenjianjia.png" width="17" height="17"/> </div>
+			<div class="card-header" style="color:rgb(122,174,255)">项目经历<img src="${path}/wechat-assets/images/iconfont-wenjianjia.png" width="17" height="17"/> </div>
 			<div class="card-content">
 			<c:forEach items="${betterStu.projectexperience }" var="projecte" varStatus="statue">
 		      <div class="row">
@@ -171,7 +171,7 @@
           </div>
           
            <div class="card" >
-			<div class="card-header" style="color:rgb(122,174,255)">自我评价<img src="${path}/images/iconfont-wodepingjia.png" width="17" height="17"/> </div>
+			<div class="card-header" style="color:rgb(122,174,255)">自我评价<img src="${path}/wechat-assets/images/iconfont-wodepingjia.png" width="17" height="17"/> </div>
 			<div class="card-content">
               <div class="row">
                 <div class="col-100 brief card-brief" style="padding-left:0%;padding-right:0%;margin-left:1%;color:rgb(100,100,100)">
@@ -201,7 +201,7 @@
 
 </div>
     <script type='text/javascript' src='${path}/assets/js/jquery-2.1.4.js' charset='utf-8'></script>
-    <script type='text/javascript' src='${path}/js/light7.js' charset='utf-8'></script>
+    <script type='text/javascript' src='${path}/wechat-assets/js/light7.js' charset='utf-8'></script>
     <script  type="text/javascript">
     var message = null;
     var titletxt = "";

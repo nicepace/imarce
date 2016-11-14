@@ -2,6 +2,10 @@ package com.imarce.webadmin.entity;
 
 public class role {
 
+	@Override
+	public String toString() {
+		return "role [roleId=" + roleId + ", roleName=" + roleName + "]";
+	}
 	private int roleId;
 	private String roleName;
 	public int getRoleId() {
